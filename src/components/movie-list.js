@@ -1,13 +1,15 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Card, Button, Col } from "react-bootstrap";
+import { BsFillPersonFill } from "react-icons/bs";
+import { BsCalendar } from "react-icons/bs";
 
-const MovieList = () => {
+const MovieList = (props) => {
 
 	const responsive = {
 		desktop: {
-			breakpoint: { max: 3000, min: 1024 },
-			items: 4,
+			breakpoint: { max: 2000, min: 1024 },
+			items: 5,
 			slidesToSlide: 4 // optional, default to 1.
 		},
 		tablet: {
@@ -21,120 +23,54 @@ const MovieList = () => {
 			slidesToSlide: 1 // optional, default to 1.
 		}
 	};
-
-
+	console.info(props.movies);
 	return (
-		<Carousel
-			swipeable={true}
-			draggable={true}
-			showDots={false}
-			responsive={responsive}
-			ssr={true} // means to render carousel on server-side.
-			infinite={true}
-			autoPlaySpeed={1000}
-			keyBoardControl={true}
-			autoPlay={true}
-			customTransition="all .5"
-			transitionDuration={500}
-			containerClass="carousel-container"
-			removeArrowOnDeviceType={["tablet", "mobile"]}
-			dotListClass="custom-dot-list-style"
-		>
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asdasd
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-
-			</div>
 
 
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						Sasdasd.
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			</div>
+		<div className="App-content">
 
 
+			<Carousel
+				swipeable={true}
+				draggable={true}
+				showDots={true}
+				responsive={responsive}
+				ssr={true} // means to render carousel on server-side.
+				infinite={true}
+				autoPlaySpeed={1000}
+				keyBoardControl={true}
+				autoPlay={false}
+				customTransition="all .5"
+				transitionDuration={500}
+				containerClass="carousel-container"
+				removeArrowOnDeviceType={["tablet", "mobile"]}
+				dotListClass="custom-dot-list-style">
 
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asdasd
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card>
-			</div>
+				{
+					props.movies.map((element, index) =>
+						<div><Card style={{ width: '15rem', height: "33rem", margin: "8px" }}>
+							<Card.Img variant="top" height="250px" src={element.Poster} />
+							<Card.Body>
+								<Card.Title style={{ fontSize: '14px', textAlign: "left" }}>{element.Title}</Card.Title>
+								<Card.Text style={{ fontSize: '12px', textAlign: "left" }}> {element.Type}</Card.Text>
+								<hr></hr>
+								<Card.Text style={{ fontSize: '12px', textAlign: "left" }}>  {element.Explanation}</Card.Text>
+								<hr></hr>
+								<Card.Text style={{ fontSize: '15px', textAlign: "left" }}>  <BsFillPersonFill size="20" />   {element.Director}</Card.Text>
+								<hr></hr>
+								<Card.Text style={{ fontSize: '15px', textAlign: "left" }}>  <BsCalendar size="20" />   {element.Year}</Card.Text>
+							</Card.Body>
+						</Card>
 
+						</div>
 
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asda
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card></div>
+					)
+				}
 
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asda
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card></div>
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asda
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card></div>
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asda
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card></div>
-			<div><Card style={{ width: '18rem' }}>
-				<Card.Img variant="top" src="holder.js/100px180" />
-				<Card.Body>
-					<Card.Title>Card Title</Card.Title>
-					<Card.Text>
-						asda
-					</Card.Text>
-					<Button variant="primary">Go somewhere</Button>
-				</Card.Body>
-			</Card></div>
+			</Carousel >
+		</div>
 
 
-		</Carousel>
 	);
 };
 
