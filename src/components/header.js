@@ -1,6 +1,6 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 function Header() {
     return (
@@ -8,13 +8,11 @@ function Header() {
             <Container>
                 <Row>
                     <div className="App-header">
-                        <img src="https://www.digiturk.com.tr/assets/img/logo-red.png">
+                        <img alt="digiturk" src="https://www.digiturk.com.tr/assets/img/logo-red.png">
                         </img>
                     </div>
                 </Row>
             </Container>
-
-
         </div>
     )
 }
