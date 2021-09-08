@@ -1,7 +1,10 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row } from "react-bootstrap";
 
+/**
+ *
+ * @returns returns the footer view
+ */
 function Footer() {
   return (
     <div>

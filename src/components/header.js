@@ -1,17 +1,18 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row } from "react-bootstrap";
+import { DIGITURK_IMAGE } from "../constant/app-constant";
 
+/**
+ *
+ * @returns the header view
+ */
 function Header() {
   return (
     <div>
       <Container>
         <Row>
           <div className="App-header">
-            <img
-              alt="digiturk"
-              src="https://www.digiturk.com.tr/assets/img/logo-red.png"
-            ></img>
+            <img alt="digiturk" src={DIGITURK_IMAGE}></img>
           </div>
         </Row>
       </Container>

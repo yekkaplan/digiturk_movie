@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Body from "./components/body";
+import HomeScreen from "./components/home-screen";
 import MovieDetail from "./components/movie-detail";
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { LANGUAGE, API_KEY } from "./constant/app-constant";
 import axios from "axios";
@@ -15,16 +15,7 @@ function App() {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    getMovies(API_KEY, LANGUAGE);
-  }, []);
-
-  /**
-   *
-   * @param {Movie db api key} API_KEY
-   * @param {locale language  "tr-TR , en,Us} LANGUAGE
-   */
-  async function getMovies(API_KEY, LANGUAGE) {
-    await axios
+    axios
       .get(
         "https://api.themoviedb.org/3/movie/popular?api_key=" +
           API_KEY +
@@ -36,10 +27,15 @@ function App() {
         setMovies(response.data);
         setLoading(true);
       });
-  }
+  }, []);
 
+  /**
+   *
+   * @param {String} API_KEY - its movie db api key
+   * @param {String} LANGUAGE - its locale language code
+   */
   return isLoading ? (
-    <div className="App">
+    <div className="App" >
       <Router>
         <Container>
           <Header />
@@ -47,7 +43,7 @@ function App() {
             path="/"
             exact
             render={() => {
-              return <Body movies={movies} />;
+              return <HomeScreen movies={movies} />;
             }}
           />
           <Route

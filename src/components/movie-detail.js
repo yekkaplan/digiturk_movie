@@ -1,32 +1,25 @@
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import { BACKDROP_URL, API_KEY, LANGUAGE } from "../constant/app-constant";
 import axios from "axios";
 
-function MovieDetail(props) {
+/**
+ *
+ * @returns movie detail page
+ */
+function MovieDetail() {
   const history = useHistory();
   const location = useLocation();
   const [movie, setMovie] = useState();
   const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {}, [location]);
+  const paramId = location.state.param.id;
 
   useEffect(() => {
-    getMovieDetail(API_KEY, LANGUAGE, location.state.param.id);
-  }, []);
-
-  /**
-   * The method that brings trending movies
-   * @param API_KEY the movie db api key
-   * @param LANGUAGE locale language
-   */
-
-  async function getMovieDetail(API_KEY, LANGUAGE, movieId) {
-    await axios
+    axios
       .get(
         "https://api.themoviedb.org/3/movie/" +
-          movieId +
+          paramId +
           "?api_key=" +
           API_KEY +
           "&language=" +
@@ -35,9 +28,15 @@ function MovieDetail(props) {
       .then(function (response) {
         setMovie(response.data);
         setLoading(true);
-        console.info(response.data);
       });
-  }
+  }, []);
+
+  /**
+   * The method that brings trending movies
+   * @param API_KEY the movie db api key
+   * @param LANGUAGE locale language
+   */
+
   console.info(movie);
 
   return isLoading ? (
@@ -54,15 +53,13 @@ function MovieDetail(props) {
                 size="lg"
               >
                 Go back
-              </Button>{" "}
+              </Button>
             </div>
           </Row>
           <Col xs lg="5">
             <img
+              className="backdrop-img"
               alt="movie"
-              align="left"
-              height="400"
-              width="500px"
               src={BACKDROP_URL + movie.backdrop_path}
             />
           </Col>
@@ -77,40 +74,40 @@ function MovieDetail(props) {
               <h1 style={{ align: "left" }}>{movie.title}</h1>
               <span>
                 <b> Vizyona giriş Tarihi: </b> {movie.release_date}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
               <span>
                 <b> Süre: </b> {movie.runtime}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
               <span>
-                <b> Tür: </b>{" "}
-                {movie.genres.map((element, index) => element.name + " ")}{" "}
-              </span>{" "}
-              <br></br>
+                <b> Tür: </b>
+                {movie.genres.map((element, index) => element.name + " ")}
+              </span>
+              <br />
               <span>
                 <b> Süre: </b> {movie.runtime}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
               <span>
                 <b> Açıklama: </b> {movie.overview}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
               <span>
                 <b> Diller: </b>{" "}
                 {movie.spoken_languages.map(
                   (element, index) => element.name + " "
-                )}{" "}
-              </span>{" "}
-              <br></br>
+                )}
+              </span>
+              <br />
               <span>
                 <b> Puan: </b> {movie.vote_average}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
               <span>
                 <b> Puan Sayısı: </b> {movie.vote_count}
-              </span>{" "}
-              <br></br>
+              </span>
+              <br />
             </div>
           </Col>
         </Row>

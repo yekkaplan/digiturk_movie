@@ -8,11 +8,13 @@ import { useHistory } from "react-router-dom";
 
 /**
  *
- * @param {* this props is movie array} props
- * @returns  Courasel movie list
+ * @param {Object} props
+ * @param {Array} props.movie - list of movies
+ * @returns
  */
 const MovieList = (props) => {
   const history = useHistory();
+  const { movieList } = props.movies;
 
   const responsive = {
     desktop: {
@@ -39,7 +41,7 @@ const MovieList = (props) => {
         draggable={true}
         showDots={true}
         responsive={responsive}
-        ssr={true} // means to render carousel on server-side.
+        ssr={false}
         infinite={true}
         autoPlaySpeed={1000}
         keyBoardControl={true}
@@ -50,7 +52,7 @@ const MovieList = (props) => {
         removeArrowOnDeviceType={["tablet", "mobile"]}
         dotListClass="custom-dot-list-style"
       >
-        {props.movies.results.map((element, index) => (
+        {movieList.results.map((element, index) => (
           <div
             key={element.title}
             onClick={() => {
