@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,32 +7,21 @@ import Footer from "./components/footer";
 import HomeScreen from "./components/home-screen";
 import MovieDetail from "./components/movie-detail";
 import { Container } from "react-bootstrap";
-import { LANGUAGE, API_KEY } from "./constant/app-constant";
-import axios from "axios";
+import { connect } from "react-redux";
+import { getMovies } from "./actions/actions";
+import { LOADING_MESSAGE } from "./constant/app-constant";
 /**
  * @param {String} API_KEY - its movie db api key
  * @param {String} LANGUAGE - its locale language code
  */
-function App() {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-
+const App = (props) => {
   useEffect(() => {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=" +
-          API_KEY +
-          "&language=" +
-          LANGUAGE +
-          "&page=1"
-      )
-      .then(function (response) {
-        setMovies(response.data);
-        setLoading(true);
-      });
+    props.getMovies();
   }, []);
 
-  return isLoading ? (
+  return props.isLoading ? (
+    <div>{LOADING_MESSAGE}</div>
+  ) : (
     <div className="App">
       <Router>
         <Container>
@@ -41,7 +30,7 @@ function App() {
             path="/"
             exact
             render={() => {
-              return <HomeScreen movies={movies} />;
+              return <HomeScreen movies={props.movies} />;
             }}
           />
           <Route
@@ -56,11 +45,14 @@ function App() {
         </Container>
       </Router>
     </div>
-  ) : (
-    <div className="App-content">
-      <div> Loading..</div>
-    </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    movies: state.movies,
+    isLoading: state.isLoading,
+  };
+};
+
+export default connect(mapStateToProps, { getMovies })(App);

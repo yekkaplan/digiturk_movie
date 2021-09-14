@@ -3,8 +3,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Card } from "react-bootstrap";
 import { BsAward, BsCalendar } from "react-icons/bs";
-import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import { BACKDROP_URL } from "../constant/app-constant";
 
 /**
  *
@@ -63,10 +63,7 @@ const MovieList = (props) => {
               <Card.Img
                 variant="top"
                 height="250px"
-                src={
-                  "https://image.tmdb.org/t/p/w500_and_h282_face/" +
-                  element.poster_path
-                }
+                src={BACKDROP_URL + element.poster_path}
               />
               <Card.Body>
                 <Card.Title style={{ fontSize: "14px", textAlign: "left" }}>
@@ -101,7 +98,3 @@ const MovieList = (props) => {
 };
 
 export default MovieList;
-
-MovieList.propTypes = {
-  movies: PropTypes.array,
-};

@@ -1,34 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
-import { BACKDROP_URL, API_KEY, LANGUAGE } from "../constant/app-constant";
-import axios from "axios";
+import { BACKDROP_URL, LOADING_MESSAGE } from "../constant/app-constant";
+import { connect } from "react-redux";
+import { getMovieDetail } from "../actions/actions";
 
 /**
- *
+ * @param {Object} props.movie - its movie detail
+ * @param {Object} props.isLoading -  for loading screen
  * @returns movie detail page
  */
-function MovieDetail() {
+const MovieDetail = (props) => {
   const history = useHistory();
   const location = useLocation();
-  const [movie, setMovie] = useState();
-  const [isLoading, setLoading] = useState(false);
-  const paramId = location.state.param.id;
 
+  let paramId = location.state.param.id;
   useEffect(() => {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/" +
-          paramId +
-          "?api_key=" +
-          API_KEY +
-          "&language=" +
-          LANGUAGE
-      )
-      .then(function (response) {
-        setMovie(response.data);
-        setLoading(true);
-      });
+    console.info(paramId);
+    getMovieDetail(paramId);
   }, []);
 
   /**
@@ -37,9 +26,9 @@ function MovieDetail() {
    * @param LANGUAGE locale language
    */
 
-  console.info(movie);
-
-  return isLoading ? (
+  return !props.movieDetail ? (
+    <div>{LOADING_MESSAGE}</div>
+  ) : (
     <div className="App-content">
       <Container>
         <Row>
@@ -60,7 +49,7 @@ function MovieDetail() {
             <img
               className="backdrop-img"
               alt="movie"
-              src={BACKDROP_URL + movie.backdrop_path}
+              src={BACKDROP_URL + props.movieDetail.backdrop_path}
             />
           </Col>
           <Col>
@@ -71,41 +60,43 @@ function MovieDetail() {
                 fontSize: "14px",
               }}
             >
-              <h1 style={{ align: "left" }}>{movie.title}</h1>
+              <h1 style={{ align: "left" }}>{props.movieDetail.title}</h1>
               <span>
-                <b> Vizyona giriş Tarihi: </b> {movie.release_date}
+                <b> Vizyona giriş Tarihi: </b> {props.movieDetail.release_date}
               </span>
               <br />
               <span>
-                <b> Süre: </b> {movie.runtime}
+                <b> Süre: </b> {props.movieDetail.runtime}
               </span>
               <br />
               <span>
                 <b> Tür: </b>
-                {movie.genres.map((element, index) => element.name + " ")}
-              </span>
-              <br />
-              <span>
-                <b> Süre: </b> {movie.runtime}
-              </span>
-              <br />
-              <span>
-                <b> Açıklama: </b> {movie.overview}
-              </span>
-              <br />
-              <span>
-                <b> Diller: </b>{" "}
-                {movie.spoken_languages.map(
+                {props.movieDetail.genres.map(
                   (element, index) => element.name + " "
                 )}
               </span>
               <br />
               <span>
-                <b> Puan: </b> {movie.vote_average}
+                <b> Süre: </b> {props.movieDetail.runtime}
               </span>
               <br />
               <span>
-                <b> Puan Sayısı: </b> {movie.vote_count}
+                <b> Açıklama: </b> {props.movieDetail.overview}
+              </span>
+              <br />
+              <span>
+                <b> Diller: </b>{" "}
+                {props.movieDetail.spoken_languages.map(
+                  (element, index) => element.name + " "
+                )}
+              </span>
+              <br />
+              <span>
+                <b> Puan: </b> {props.movieDetail.vote_average}
+              </span>
+              <br />
+              <span>
+                <b> Puan Sayısı: </b> {props.movieDetail.vote_count}
               </span>
               <br />
             </div>
@@ -113,11 +104,14 @@ function MovieDetail() {
         </Row>
       </Container>
     </div>
-  ) : (
-    <div className="App-content">
-      <div> Loading..</div>
-    </div>
   );
-}
+};
 
-export default MovieDetail;
+const mapStateToProps = (state) => {
+  return {
+    movieDetail: state.movieDetail,
+    isLoading: state.isLoading,
+  };
+};
+
+export default connect(mapStateToProps, { getMovieDetail })(MovieDetail);
