@@ -14,7 +14,7 @@ import { useHistory } from "react-router-dom";
  */
 const MovieList = (props) => {
   const history = useHistory();
-  const { movieList } = props.movies;
+  const movieList = props.movies;
 
   const responsive = {
     desktop: {

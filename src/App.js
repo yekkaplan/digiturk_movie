@@ -9,7 +9,10 @@ import MovieDetail from "./components/movie-detail";
 import { Container } from "react-bootstrap";
 import { LANGUAGE, API_KEY } from "./constant/app-constant";
 import axios from "axios";
-
+/**
+ * @param {String} API_KEY - its movie db api key
+ * @param {String} LANGUAGE - its locale language code
+ */
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -29,13 +32,8 @@ function App() {
       });
   }, []);
 
-  /**
-   *
-   * @param {String} API_KEY - its movie db api key
-   * @param {String} LANGUAGE - its locale language code
-   */
   return isLoading ? (
-    <div className="App" >
+    <div className="App">
       <Router>
         <Container>
           <Header />
