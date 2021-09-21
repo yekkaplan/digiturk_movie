@@ -1,4 +1,4 @@
-import { getMoviesFromAPI, getMovieDetailFromAPI } from "../apis/apiCall";
+import { getMoviesFromAPI, getMovieDetailFromAPI } from "../apis/api-call";
 import { API_KEY, LANGUAGE } from "../constant/app-constant";
 
 /**

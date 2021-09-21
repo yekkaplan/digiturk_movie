@@ -20,12 +20,6 @@ const MovieDetail = (props) => {
     props.getMovieDetail(paramId);
   }, []);
 
-  /**
-   * The method that brings trending movies
-   * @param API_KEY the movie db api key
-   * @param LANGUAGE locale language
-   */
-
   return !movie ? (
     <div>{LOADING_MESSAGE}</div>
   ) : (

@@ -29,7 +29,6 @@ export const getMoviesFromAPI = (API_KEY, LANGUAGE) => {
   return response;
 };
 /**
- *
  * @param {String} API_KEY  - moviedb key
  * @param {String} LANGUAGE  - locale language code
  * @param {String} paramId  - its movie id
