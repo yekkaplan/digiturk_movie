@@ -19,9 +19,9 @@ const INITIAL_STATE = {
 
 /**
  *
- * @param {Any} state - App state
+ * @param {Any} state - Includes application state
  * @param {Any} action -It contains method/object actions.
- * @returns
+ * @returns - it returns state again after state has been processed
  */
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
