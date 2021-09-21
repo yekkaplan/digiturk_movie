@@ -4,20 +4,20 @@ import { useLocation, useHistory } from "react-router-dom";
 import { BACKDROP_URL, LOADING_MESSAGE } from "../constant/app-constant";
 import { connect } from "react-redux";
 import { getMovieDetail } from "../actions/actions";
+import { useSelector } from "react-redux";
 
 /**
- * @param {Object} props.movie - its movie detail
- * @param {Object} props.isLoading -  for loading screen
+ * @param {Object} movie - its movie detail
  * @returns movie detail page
  */
 const MovieDetail = (props) => {
   const history = useHistory();
   const location = useLocation();
+  const movie = useSelector((state) => state.movieDetail);
 
   let paramId = location.state.param.id;
   useEffect(() => {
-    console.info(paramId);
-    getMovieDetail(paramId);
+    props.getMovieDetail(paramId);
   }, []);
 
   /**
@@ -26,7 +26,7 @@ const MovieDetail = (props) => {
    * @param LANGUAGE locale language
    */
 
-  return !props.movieDetail ? (
+  return !movie ? (
     <div>{LOADING_MESSAGE}</div>
   ) : (
     <div className="App-content">
@@ -49,7 +49,7 @@ const MovieDetail = (props) => {
             <img
               className="backdrop-img"
               alt="movie"
-              src={BACKDROP_URL + props.movieDetail.backdrop_path}
+              src={BACKDROP_URL + movie.backdrop_path}
             />
           </Col>
           <Col>
@@ -60,43 +60,41 @@ const MovieDetail = (props) => {
                 fontSize: "14px",
               }}
             >
-              <h1 style={{ align: "left" }}>{props.movieDetail.title}</h1>
+              <h1 style={{ align: "left" }}>{movie.title}</h1>
               <span>
-                <b> Vizyona giriş Tarihi: </b> {props.movieDetail.release_date}
+                <b> Vizyona giriş Tarihi: </b> {movie.release_date}
               </span>
               <br />
               <span>
-                <b> Süre: </b> {props.movieDetail.runtime}
+                <b> Süre: </b> {movie.runtime}
               </span>
               <br />
               <span>
                 <b> Tür: </b>
-                {props.movieDetail.genres.map(
-                  (element, index) => element.name + " "
-                )}
+                {movie.genres.map((element, index) => element.name + " ")}
               </span>
               <br />
               <span>
-                <b> Süre: </b> {props.movieDetail.runtime}
+                <b> Süre: </b> {movie.runtime}
               </span>
               <br />
               <span>
-                <b> Açıklama: </b> {props.movieDetail.overview}
+                <b> Açıklama: </b> {movie.overview}
               </span>
               <br />
               <span>
                 <b> Diller: </b>{" "}
-                {props.movieDetail.spoken_languages.map(
+                {movie.spoken_languages.map(
                   (element, index) => element.name + " "
                 )}
               </span>
               <br />
               <span>
-                <b> Puan: </b> {props.movieDetail.vote_average}
+                <b> Puan: </b> {movie.vote_average}
               </span>
               <br />
               <span>
-                <b> Puan Sayısı: </b> {props.movieDetail.vote_count}
+                <b> Puan Sayısı: </b> {movie.vote_count}
               </span>
               <br />
             </div>

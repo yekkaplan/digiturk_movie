@@ -5,16 +5,16 @@ import { Card } from "react-bootstrap";
 import { BsAward, BsCalendar } from "react-icons/bs";
 import { useHistory } from "react-router-dom";
 import { BACKDROP_URL } from "../constant/app-constant";
+import { useSelector } from "react-redux";
 
 /**
  *
- * @param {Object} props
- * @param {Array} props.movie - list of movies
- * @returns
+ * @param {Array} movies - list of movies
+ * @returns - movieList page
  */
-const MovieList = (props) => {
+const MovieList = () => {
   const history = useHistory();
-  const movieList = props.movies;
+  const movies = useSelector((state) => state.movies);
 
   const responsive = {
     desktop: {
@@ -34,7 +34,9 @@ const MovieList = (props) => {
     },
   };
 
-  return (
+  return !movies ? (
+    <div>Loading</div>
+  ) : (
     <div className="App-content">
       <Carousel
         swipeable={true}
@@ -52,7 +54,7 @@ const MovieList = (props) => {
         removeArrowOnDeviceType={["tablet", "mobile"]}
         dotListClass="custom-dot-list-style"
       >
-        {movieList.results.map((element, index) => (
+        {movies.results.map((element, index) => (
           <div
             key={element.title}
             onClick={() => {
