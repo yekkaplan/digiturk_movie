@@ -3,7 +3,6 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
 import { BACKDROP_URL, LOADING_MESSAGE } from "../constant/app-constant";
 import { connect } from "react-redux";
-import { getMovieDetail } from "../actions/actions";
 import { useSelector } from "react-redux";
 
 /**
@@ -16,9 +15,7 @@ const MovieDetail = (props) => {
   const movie = useSelector((state) => state.movieDetail);
 
   let paramId = location.state.param.id;
-  useEffect(() => {
-    props.getMovieDetail(paramId);
-  }, []);
+  useEffect(() => {}, []);
 
   return !movie ? (
     <div>{LOADING_MESSAGE}</div>

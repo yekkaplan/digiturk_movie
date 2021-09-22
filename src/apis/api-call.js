@@ -3,6 +3,10 @@ import {
   IDLE_MOVIES,
   IDLE_MOVIESDETAIL,
   ERROR,
+  API_KEY,
+  LANGUAGE,
+  GET_MOVIES,
+  GET_MOVIES_DETAIL,
 } from "../constant/app-constant";
 
 /**
@@ -11,7 +15,7 @@ import {
  * @param {String} LANGUAGE  - locale language code
  * @returns
  */
-export const getMoviesFromAPI = (API_KEY, LANGUAGE) => {
+export const getMoviesFromAPI = () => {
   var response = axios
     .get(
       "https://api.themoviedb.org/3/movie/popular?api_key=" +
@@ -21,7 +25,7 @@ export const getMoviesFromAPI = (API_KEY, LANGUAGE) => {
         "&page=1"
     )
     .then((response) => {
-      return { type: IDLE_MOVIES, payload: response.data };
+      return { type: GET_MOVIES, payload: response.data };
     })
     .catch((error) => {
       return { type: ERROR, payload: error };
@@ -34,7 +38,7 @@ export const getMoviesFromAPI = (API_KEY, LANGUAGE) => {
  * @param {String} paramId  - its movie id
  * @returns  -
  */
-export const getMovieDetailFromAPI = (API_KEY, LANGUAGE, paramId) => {
+export const getMovieDetailFromAPI = (paramId) => {
   var response = axios
     .get(
       "https://api.themoviedb.org/3/movie/" +
@@ -45,7 +49,7 @@ export const getMovieDetailFromAPI = (API_KEY, LANGUAGE, paramId) => {
         LANGUAGE
     )
     .then((response) => {
-      return { type: IDLE_MOVIESDETAIL, payload: response.data };
+      return { type: GET_MOVIES_DETAIL, payload: response.data };
     })
     .catch((error) => {
       return { type: ERROR, payload: error };

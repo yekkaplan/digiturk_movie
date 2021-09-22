@@ -1,21 +1,26 @@
 import { getMoviesFromAPI, getMovieDetailFromAPI } from "../apis/api-call";
-import { API_KEY, LANGUAGE } from "../constant/app-constant";
+import {
+  GET_MOVIES,
+  GET_MOVIES_FAILED,
+  GET_MOVIES_DETAIL,
+  GET_MOVIES_DETAIL_FAILED,
+} from "../constant/app-constant";
 
-/**
- *
- * @returns - dispatch  movies reducers with payload
- */
-export const getMovies = () => async (dispatch) => {
-  var response = await getMoviesFromAPI(API_KEY, LANGUAGE);
-  dispatch({ type: response.type, payload: response.payload });
-};
+export const getMovies = (payload) => ({
+  type: GET_MOVIES,
+  payload,
+});
 
-/**
- *
- * @returns - dispatch movieDetail reducers with payload
- */
-export const getMovieDetail = (paramId) => async (dispatch) => {
-  var response = await getMovieDetailFromAPI(API_KEY, LANGUAGE, paramId);
+export const getMoviesDetail = (payload) => ({
+  type: GET_MOVIES_DETAIL,
+  payload,
+});
+export const getMoviesFailed = (payload) => ({
+  type: GET_MOVIES_FAILED,
+  payload,
+});
 
-  dispatch({ type: response.type, payload: response.payload });
-};
+export const getMoviesDetailFailed = (payload) => ({
+  type: GET_MOVIES_DETAIL_FAILED,
+  payload,
+});

@@ -1,8 +1,8 @@
 import {
-  IDLE_MOVIES,
+  GET_MOVIES,
   BUSY,
   ERROR,
-  IDLE_MOVIESDETAIL,
+  GET_MOVIES_DETAIL,
 } from "../constant/app-constant";
 
 /**
@@ -27,9 +27,9 @@ export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case BUSY:
       return { ...state, isLoading: true, errorMessage: "" };
-    case IDLE_MOVIES:
+    case GET_MOVIES:
       return { ...state, movies: action.payload, isLoading: false };
-    case IDLE_MOVIESDETAIL:
+    case GET_MOVIES_DETAIL:
       return { ...state, movieDetail: action.payload, isLoading: false };
     case ERROR:
       return { ...state, errorMessage: action.payload, isLoading: false };
