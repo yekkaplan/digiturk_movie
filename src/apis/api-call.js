@@ -1,12 +1,10 @@
 import axios from "axios";
 import {
-  IDLE_MOVIES,
-  IDLE_MOVIESDETAIL,
   ERROR,
   API_KEY,
   LANGUAGE,
-  GET_MOVIES,
-  GET_MOVIES_DETAIL,
+  GET_MOVIES_REQUEST_SUCCESS,
+  GET_MOVIES_DETAIL_SUCCESS,
 } from "../constant/app-constant";
 
 /**
@@ -25,7 +23,7 @@ export const getMoviesFromAPI = () => {
         "&page=1"
     )
     .then((response) => {
-      return { type: GET_MOVIES, payload: response.data };
+      return { type: GET_MOVIES_REQUEST_SUCCESS, payload: response.data };
     })
     .catch((error) => {
       return { type: ERROR, payload: error };
@@ -39,6 +37,7 @@ export const getMoviesFromAPI = () => {
  * @returns  -
  */
 export const getMovieDetailFromAPI = (paramId) => {
+  console.info(paramId);
   var response = axios
     .get(
       "https://api.themoviedb.org/3/movie/" +
@@ -49,7 +48,7 @@ export const getMovieDetailFromAPI = (paramId) => {
         LANGUAGE
     )
     .then((response) => {
-      return { type: GET_MOVIES_DETAIL, payload: response.data };
+      return { type: GET_MOVIES_DETAIL_SUCCESS, payload: response.data };
     })
     .catch((error) => {
       return { type: ERROR, payload: error };

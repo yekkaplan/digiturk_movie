@@ -11,8 +11,6 @@ import { connect, useDispatch } from "react-redux";
 import { getMovies } from "./actions/actions";
 import { LOADING_MESSAGE } from "./constant/app-constant";
 
-
-
 /**
  * @param {String} API_KEY - its movie db api key
  * @param {String} LANGUAGE - its locale language code
@@ -21,7 +19,6 @@ const App = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     dispatch(getMovies());
   }, []);
 

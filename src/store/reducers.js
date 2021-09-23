@@ -1,8 +1,9 @@
 import {
-  GET_MOVIES,
-  BUSY,
   ERROR,
-  GET_MOVIES_DETAIL,
+  GET_MOVIES_DETAIL_REQUEST,
+  GET_MOVIES_DETAIL_SUCCESS,
+  GET_MOVIES_REQUEST_SUCCESS,
+  GET_MOVIES_REQUEST,
 } from "../constant/app-constant";
 
 /**
@@ -11,7 +12,7 @@ import {
  * @param {Object} movieDetail -  detail of movie
  */
 const INITIAL_STATE = {
-  isLoading: true,
+  isLoading: false,
   movies: [],
   movieDetail: null,
   errorMessage: "",
@@ -25,11 +26,11 @@ const INITIAL_STATE = {
  */
 export const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case BUSY:
-      return { ...state, isLoading: true, errorMessage: "" };
-    case GET_MOVIES:
+    case GET_MOVIES_REQUEST:
+    case GET_MOVIES_REQUEST_SUCCESS:
       return { ...state, movies: action.payload, isLoading: false };
-    case GET_MOVIES_DETAIL:
+    case GET_MOVIES_DETAIL_REQUEST:
+    case GET_MOVIES_DETAIL_SUCCESS:
       return { ...state, movieDetail: action.payload, isLoading: false };
     case ERROR:
       return { ...state, errorMessage: action.payload, isLoading: false };

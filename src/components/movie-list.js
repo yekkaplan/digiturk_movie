@@ -16,6 +16,8 @@ const MovieList = () => {
   const history = useHistory();
   const movies = useSelector((state) => state.movies);
 
+  console.info(movies);
+
   const responsive = {
     desktop: {
       breakpoint: { max: 2000, min: 1024 },
@@ -34,7 +36,7 @@ const MovieList = () => {
     },
   };
 
-  return !movies ? (
+  return !movies.length > 0 ? (
     <div>Loading</div>
   ) : (
     <div className="App-content">
@@ -54,7 +56,7 @@ const MovieList = () => {
         removeArrowOnDeviceType={["tablet", "mobile"]}
         dotListClass="custom-dot-list-style"
       >
-        {movies.results.map((element, index) => (
+        {movies.map((element, index) => (
           <div
             key={element.title}
             onClick={() => {

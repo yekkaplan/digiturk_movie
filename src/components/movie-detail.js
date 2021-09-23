@@ -3,19 +3,22 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { useLocation, useHistory } from "react-router-dom";
 import { BACKDROP_URL, LOADING_MESSAGE } from "../constant/app-constant";
 import { connect } from "react-redux";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getMoviesDetail } from "../actions/actions";
 
 /**
  * @param {Object} movie - its movie detail
  * @returns movie detail page
  */
-const MovieDetail = (props) => {
+const MovieDetail = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const movie = useSelector((state) => state.movieDetail);
 
-  let paramId = location.state.param.id;
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(getMoviesDetail(location.state.param.id));
+  }, []);
 
   return !movie ? (
     <div>{LOADING_MESSAGE}</div>
@@ -103,4 +106,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getMovieDetail })(MovieDetail);
+export default connect(mapStateToProps, { getMoviesDetail })(MovieDetail);
