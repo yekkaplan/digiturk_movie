@@ -15,7 +15,6 @@ import { useSelector } from "react-redux";
 const MovieList = () => {
   const history = useHistory();
   const movies = useSelector((state) => state.movies);
-
   console.info(movies);
 
   const responsive = {
@@ -36,7 +35,7 @@ const MovieList = () => {
     },
   };
 
-  return !movies.length > 0 ? (
+  return !movies ? (
     <div>Loading</div>
   ) : (
     <div className="App-content">
