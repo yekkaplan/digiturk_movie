@@ -17,6 +17,12 @@ export const getMoviesSuccess = (payload) => ({
   payload,
 });
 
+
+/**
+ * 
+ * @param {String} paramId - movie detail id 
+ * @returns 
+ */
 export const getMoviesDetail = (paramId) => ({
   type: GET_MOVIES_DETAIL_REQUEST,
   paramId: paramId,

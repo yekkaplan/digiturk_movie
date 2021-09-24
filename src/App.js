@@ -33,7 +33,7 @@ const App = (props) => {
             path="/"
             exact
             render={() => {
-              return <HomeScreen movies={props.movies} />;
+              return <HomeScreen />;
             }}
           />
           <Route

@@ -1,12 +1,12 @@
-// export default function* () {
-//   console.log('I am redux-saga');
-// }
 
 import { all } from "redux-saga/effects";
 import moviesSaga from "./movies-saga";
 
 
-// redux saga
+/**
+ * Redux all saga
+ */
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function* () {
   yield all([moviesSaga()]);
 }

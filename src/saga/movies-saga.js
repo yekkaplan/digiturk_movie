@@ -12,6 +12,10 @@ import {
   GET_MOVIES_DETAIL_REQUEST,
 } from "../constant/app-constant";
 
+
+/**
+ * Get all movies list
+ */
 function* getMovieList() {
   try {
     const data = yield call(getMoviesFromAPI);
@@ -21,6 +25,11 @@ function* getMovieList() {
   }
 }
 
+
+/**
+ * 
+ * @param {STRING} action.payload - include movie detail id 
+ */
 function* getMovieDetail(action) {
   try {
     const data = yield call(getMovieDetailFromAPI, action.paramId);
@@ -29,6 +38,7 @@ function* getMovieDetail(action) {
     yield put(getMoviesDetailFailed(error.message));
   }
 }
+
 
 function* getMoviesWatcher() {
   yield takeEvery(GET_MOVIES_REQUEST, getMovieList);
