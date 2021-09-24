@@ -7,6 +7,7 @@ import {
   GET_MOVIES_DETAIL_FAILED,
 } from "../constant/app-constant";
 
+
 export const getMovies = (payload) => ({
   type: GET_MOVIES_REQUEST,
   payload,
